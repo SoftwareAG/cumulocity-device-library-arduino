@@ -2,18 +2,18 @@
 #ifdef ESP8266
     #include <ESP8266WiFi.h>
 #else //ESP32
-    #include <WiFiClientSecure.h>
+    #include <WiFi.h>
 #endif
 
-const char *ssid = "........";
-const char *wifiPassword = "........";
-char *host = "xxx.cumulocity.com";
-char *username = "........";    // fixed credentials can be registered in the Administration section
-char *c8yPassword = "........"; // create a user in usermanagement with the "device"role and fill the credentials here
-char *tenant = "........";      //tenant ID can be found by clicking on your name in the top right corner of Cumulocity
-char *clientId = ".........";   //Should be a unique identifier for this device, e.g. IMEI, MAC address or SerialNumber
+const char *ssid = "...";
+const char *wifiPassword = "...";
+char *host = "...";
+char *username = "...";    // fixed credentials can be registered in the Administration section
+char *c8yPassword = "..."; // create a user in usermanagement with the "device"role and fill the credentials here
+char *tenant = "...";      //tenant ID can be found by clicking on your name in the top right corner of Cumulocity
+char *clientId = "...";   //Should be a unique identifier for this device, e.g. IMEI, MAC address or SerialNumber
 
-WiFiClientSecure wifiClient;
+WiFiClient wifiClient;
 CumulocityClient c8yClient(wifiClient, clientId);
 
 void setup()
@@ -29,7 +29,7 @@ void setup()
     }
     Serial.println("connected to wifi");
 
-    c8yClient.connect(host, 8883, tenant, username, c8yPassword);
+    c8yClient.connect(host, tenant, username, c8yPassword);
     c8yClient.registerDevice(clientId, "c8y_esp32");
 }
 
